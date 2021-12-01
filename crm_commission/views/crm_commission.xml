@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_team_form_inherited" model="ir.ui.view">
+        <field name="name">crm.team.form.inherited</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoiced_target']" position="after">
+                <field name="sales_team_id"/>
+            </xpath>
+
+        </field>
+    </record>
+<!--         <record id="crm_person_form_inherited" model="ir.ui.view">-->
+<!--            <field name="name">crm.person.form.inherited</field>-->
+<!--            <field name="model">res.users</field>-->
+<!--            <field name="inherit_id" ref="base.view_users_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='company_id']" position="after">-->
+<!--                    <field name="sales_person_id"/>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+
+
+    <record id="crm_commission_form" model="ir.ui.view">
+        <field name="name">crm.commission.form</field>
+        <field name="model">crm.commission</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sequence_no" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="first">
+                            <field name="name" string="Name"/>
+                            <field name="active" string="Active"/>
+                            <field name="type" string="Type" widget="radio"/>
+                            <field name="revenue_type" string="Revenue Type"
+                                   attrs="{'invisible': [('type', '!=', 'revenue wise')]}"/>
+                            <field name="from_date"/>
+                            <field name="to_date"/>
+
+                        </group>
+                        <group name="second">
+                            <field name="from_amount" attrs="{'invisible': [('type', '!=', 'revenue wise')]}"/>
+                            <field name="to_amount" attrs="{'invisible': [('type', '!=', 'revenue wise')]}"/>
+                            <field name="rate_percent"
+                                   attrs="{'invisible': [('type', '!=', 'revenue wise')]}"/>
+                            <field name="total_revenue" attrs="{'invisible': [('type', '!=', 'revenue wise')]}"/>
+                            <field name="commission_amt"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Details"
+                              attrs="{'invisible': [('type', '!=', 'product wise')]}">
+                            <field name="product_line_ids"
+                                   attrs="{'invisible': [('type', '!=', 'product wise')]}">
+                                <tree editable="bottom">
+                                    <field name="product_category_id"/>
+                                    <field name="product_id"/>
+                                    <field name="percentage_rate"/>
+                                    <field name="max_amount"/>
+                                    <field name="reference_id" invisible="1"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="crm_commission_list" model="ir.ui.view">
+        <field name="name">crm.commission.tree</field>
+        <field name="model">crm.commission</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence_no" readonly="1"/>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="type"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="from_amount"/>
+                <field name="to_amount"/>
+                <field name="rate_percent"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="list_view_type" model="ir.ui.view">
+        <field name="name">check.type.form</field>
+        <field name="model">product.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_category_id"/>
+                <field name="product_id"/>
+                <field name="percentage_rate"/>
+                <field name="max_amount"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="commission_action" model="ir.actions.act_window">
+        <field name="name">CRM Commission</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.commission</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your New CRM Commission here!
+            </p>
+        </field>
+
+    </record>
+
+    <menuitem id="crm_commission_root"
+              name="CRM Commission"
+              action="commission_action"
+              sequence="8"/>
+    <menuitem id="crm_commission"
+              parent="crm_commission_root"
+              name="Commission"
+              action="commission_action"
+              sequence="9"/>
+    <!--    <menuitem id="commission_report"-->
+    <!--              name="Commission Plan Report"-->
+    <!--              action="commission.report.wizard.commission_report_wizard"-->
+    <!--              parent="crm_commission_root"/>-->
+
+</odoo>

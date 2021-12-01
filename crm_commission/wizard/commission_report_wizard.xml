@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="commission_report_wizard_form" model="ir.ui.view">
+        <field name="name">commission.report.wizard.form</field>
+        <field name="model">commission.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Commission Plan Report">
+                <group>
+                    <group string="Sales">
+                        <field name="sales_team_ids" widget="many2many_tags"/>
+                        <field name="sales_person_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Date">
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_commission_report" string="Print Report"
+                            class="btn-primary" type="object"/>
+                    <button string="Cancel" special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+
+
+            </form>
+
+
+        </field>
+    </record>
+    <record id="commission_report_wizard" model="ir.actions.act_window">
+        <field name="name">Commission Plan Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">commission.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="commission_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="commission_report"
+              name="Commission Plan Report"
+              action="commission_report_wizard"
+              parent="crm_commission_root"/>
+
+
+</odoo>

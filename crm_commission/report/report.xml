@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="report_commission_plan_xlsx" model="ir.actions.report">
+        <field name="name">Commission Plan Report</field>
+        <field name="model">commission.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">crm_commission.report_commission_plan_xls</field>
+        <field name="report_file">crm_commission.report_commission_plan_xls</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+
+
